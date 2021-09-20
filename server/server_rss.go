@@ -16,7 +16,7 @@ import (
 var (
 	magnetExp   = regexp.MustCompile(`magnet:[^< ]+`)
 	hashinfoExp = regexp.MustCompile(`[0-9a-zA-Z]{40}`)
-	torrentExp  = regexp.MustCompile(`\.torrent`)
+	torrentExp  = regexp.MustCompile(`(https?:\/\/)?(\.torrent)?`)
 )
 
 type rssJSONItem struct {
