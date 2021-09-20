@@ -11,7 +11,7 @@ if [[ -d ${BINLOCATION} ]]; then
 	BINPREFIX=${BINLOCATION}/
 fi
 
-TAG=$(git describe --tags)
+TAG=$(git describe --tags | cut -d'-' -f1)
 SHA=$(git rev-parse --short HEAD)
 VERSION="${TAG}-${SHA}"
 
