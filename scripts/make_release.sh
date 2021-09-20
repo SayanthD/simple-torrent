@@ -11,7 +11,9 @@ if [[ -d ${BINLOCATION} ]]; then
 	BINPREFIX=${BINLOCATION}/
 fi
 
-GITVER=$(git describe --tags)
+TAG=$(git describe --tags)
+SHA=$(git rev-parse --short HEAD)
+VERSION="${TAG}-${SHA}"
 
 OS=""
 ARCH=""
@@ -68,7 +70,7 @@ fi
 
 pushd $__dir/..
 BINFILE=${BINPREFIX}${BIN}_${OS}_${ARCH}${SUFFIX}${OSSUFFIX}
-CGO_ENABLED=$CGO GOARCH=$ARCH GOOS=$OS go build -o ${BINFILE} -trimpath -ldflags "-s -w -X main.VERSION=$GITVER"
+CGO_ENABLED=$CGO GOARCH=$ARCH GOOS=$OS go build -o ${BINFILE} -trimpath -ldflags "-s -w -X main.VERSION=$VERSION"
 if [[ ! -f ${BINFILE} ]]; then
   echo "Build failed. Check with error message above."
   exit 1
