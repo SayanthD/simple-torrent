@@ -56,6 +56,7 @@ func (s *Server) serveDownloadFiles(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		if info.IsDir() {
 			w.Header().Set("Content-Type", "application/zip")
+			w.Header().Set("Content-disposition", "attachment; filename="+info.Name()+".zip")
 			w.WriteHeader(200)
 			//write .zip archive directly into response
 			a := archive.NewZipWriter(w)
